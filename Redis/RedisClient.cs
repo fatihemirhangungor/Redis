@@ -19,9 +19,14 @@ namespace Redis
             return result.HasValue ? result.ToString() : null;
         }
 
-        public async Task SetValueAsync(string key, string value)
+        public async Task SetValueAsync(string key, string value, TimeSpan expiry = default)
         {
-            await _db.StringSetAsync(key, value);
+            if (expiry != default)
+            {
+                await _db.StringSetAsync(key, value, expiry);
+            }
+
+            await _db.StringSetAsync(key, value, TimeSpan.FromHours(1));
         }
 
         public void Dispose()
