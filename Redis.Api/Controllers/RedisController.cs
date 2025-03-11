@@ -27,7 +27,7 @@ namespace Redis.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] KeyValuePair<string, string> keyValue)
+        public async Task<ActionResult> SetKey([FromBody] KeyValuePair<string, string> keyValue)
         {
             await _redisClient.SetValueAsync(keyValue.Key, keyValue.Value);
             return Ok();
